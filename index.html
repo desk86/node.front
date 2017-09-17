@@ -4,34 +4,56 @@
     <meta charset="UTF-8">
 
     <link rel="stylesheet" type="text/css" href="css/styles.css"/>
-
+    <link href="https://fonts.googleapis.com/css?family=Saira+Semi+Condensed" rel="stylesheet">
     <script type="text/javascript" src="scripts/angular.js"></script>
     <script type="text/javascript" src="scripts/node.js"></script>
 
     <title>leMIPS webAdmin</title>
 </head>
 
-<body>
+<body bgcolor="#262626">
 
 <div ng-app="myApp">
-    <div ng-controller="myController">
-      <div id="page">
+    <div ng-controller="myController" class="wrapper">
+      <!-- List Nodes -->
+      <div id="head">
         <p>
-          Current Node : {{parent}}
-          <button ng-click="openChild(0)">Home</button><br/>
-          <button
-            ng-repeat="location in locationList track by $index"
-            ng-click="openFromLocation(index, location)">{{location}}</button>
+          Current Node : {{parent}}<br/>
         </p>
+        <div class="padded"><button ng-click="openChild(0)">Home</button></div>
+        <div class="padded"><button
+          ng-repeat="location in locationList track by $index"
+          ng-click="openFromLocation(index, location)">{{location}}</button></div>
+      </div>
+      <div id="node">
       <table>
-        <th>Id</th><th>Content</th>
-        <tr ng-repeat="field in listOfFields">
-          <td><button ng-click="openChild(field.id)">{{field.id}}</button></td>
-          <td><div ng-bind-html="field.content | trust"></div></td>
+        <th>Content</th>
+        <tr ng-repeat="node in nodes">
+          <td>
+            <div ng-click="openChild(node.id)"
+              class = "selectable box"
+              ng-bind-html="node.content | trust"></div>
+          </td>
         </tr>
         <tr>
-          <td><button ng-click="addNew(newNode)">Insert</button></td>
-          <td><input type="text" ng-model="newNode.content"/></td>
+          <td><input type="text" ng-model="newNode.content"/>
+          <button ng-click="addNode(newNode)">Insert</button></td>
+        </tr>
+      </table>
+      </div>
+      <!-- List Synapse -->
+      <div id="synapse">
+      <table>
+        <th>Content</th>
+        <tr ng-repeat="synapse in synapses">
+          <td><div
+            ng-click="openChild(synapse.id)"
+            class="box"
+            ng-bind-html="synapse.content | trust"></div></td>
+        </tr>
+        <tr>
+          <td><textarea type="text" ng-model="newSynapse.content"></textarea>
+          <button ng-click="addSynapse(newSynapse)">Insert</button></td>
         </tr>
       </table>
       </div>

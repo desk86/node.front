@@ -20,18 +20,29 @@ var myController = function ($http, $scope) {
     $scope.openChild(location);
     var newList = $scope.locationList.slice(0, index);
     $scope.locationList = newList;
-  }
-  $scope.addNew = function(newNode){
+  };
+  $scope.addSynapse = function(newSynapse){
+    $http({
+        method : "POST",
+        url : "http://localhost:1997/synapse",
+        params : {request : "insert", synapse : newSynapse, node : window.global_parent}
+      })
+    .then(function(response){
+      $scope.synapses.push(response.data);
+      $scope.newSynapse = {};
+    });
+  };
+  $scope.addNode = function(newNode){
     $http({
       method : "POST",
       url : "http://localhost:1997/node",
       params : {request : "insert", node : newNode, parent : window.global_parent}
     })
     .then(function(response){
-      $scope.listOfFields.push(response.data);
+      $scope.nodes.push(response.data);
       $scope.newNode = {};
     });
-  }
+  };
   $scope.openChild = function(nodeId){
     window.global_parent = nodeId;
     $scope.parent = nodeId;
@@ -44,9 +55,17 @@ var myController = function ($http, $scope) {
       params : {request : "list", parent : window.global_parent}
     })
     .then(function(response){
-      $scope.listOfFields = response.data;
+      $scope.nodes = response.data;
     });
-  }
+    $http({
+      method : "GET",
+      url : "http://localhost:1997/synapse",
+      params : {request : "list", node : window.global_parent}
+    })
+    .then(function(response){
+      $scope.synapses = response.data;
+    });
+  };
   $scope.openChild(window.global_parent);
 };
 
