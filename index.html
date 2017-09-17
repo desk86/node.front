@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" type="text/css" href="css/styles.css"/>
+
+    <script type="text/javascript" src="scripts/angular.js"></script>
+    <script type="text/javascript" src="scripts/node.js"></script>
+
+    <title>leMIPS webAdmin</title>
+</head>
+
+<body>
+
+<div ng-app="myApp">
+    <div ng-controller="myController">
+      <div id="page">
+        <p>
+          Current Node : {{parent}}
+          <button ng-click="openChild(0)">Home</button><br/>
+          <button
+            ng-repeat="location in locationList track by $index"
+            ng-click="openFromLocation(index, location)">{{location}}</button>
+        </p>
+      <table>
+        <th>Id</th><th>Content</th>
+        <tr ng-repeat="field in listOfFields">
+          <td><button ng-click="openChild(field.id)">{{field.id}}</button></td>
+          <td><div ng-bind-html="field.content | trust"></div></td>
+        </tr>
+        <tr>
+          <td><button ng-click="addNew(newNode)">Insert</button></td>
+          <td><input type="text" ng-model="newNode.content"/></td>
+        </tr>
+      </table>
+      </div>
+    </div>
+</div>
+
+</body>
+</html>
