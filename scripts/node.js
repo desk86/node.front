@@ -1,9 +1,10 @@
 console.log("Hello!");
 window.onload = function(){
-
+  document.getElementById("defaultOpen").click();
 };
 
 var global_parent = 0;
+var currentNode = {id : window.global_parent};
 
 var myApp = angular.module("myApp", []);
 
@@ -43,11 +44,12 @@ var myController = function ($http, $scope) {
       $scope.newNode = {};
     });
   };
-  $scope.openChild = function(nodeId){
-    window.global_parent = nodeId;
-    $scope.parent = nodeId;
+  $scope.openChild = function(nodeToOpen){
+    window.global_parent = nodeToOpen.id;
+    $scope.parent = nodeToOpen.id;
     $scope.locationList.push(window.global_parent);
-    if (nodeId == 0)
+    $scope.currentNode = nodeToOpen;
+    if (nodeToOpen.id == 0)
       $scope.locationList = [];
     $http({
       method : "GET",
@@ -66,7 +68,13 @@ var myController = function ($http, $scope) {
       $scope.synapses = response.data;
     });
   };
-  $scope.openChild(window.global_parent);
+  $scope.onPreUpdateAction = function(){
+    //Show Button
+  }
+  $scope.onActionUpdate = function(){
+    //Hide Button
+  }
+  $scope.openChild(window.currentNode);
 };
 
 myApp.controller("myController", myController);

@@ -1,0 +1,56 @@
+body{
+  font-size: 14px !important;
+  font-family: Arial, sans-serif;
+  font-style: normal;
+  margin: 0px;
+}
+
+h4,h3,h2{
+  margin: 0px;
+  color: #0D47A1;
+}
+h3:hover{
+  text-decoration: underline;
+}
+
+th{
+  padding: 8px;
+  color: #fff;
+  background: #C62828;
+}
+
+td{
+  padding: 2px;
+  color: #424242;
+  font-size: 14px;
+}
+
+p{
+  color: #424242;
+  font-size: 14px;
+  margin: 0px;
+}
+
+button{
+  background: #0D47A1;
+  color: #eee;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border: none;
+  font-size: 12px;
+  font-weight: bold;
+  min-width: 60px;
+  text-decoration: none;
+  font-family: Arial;
+}
+
+input,textarea{
+  background: #fff;
+  border: 2px solid #ccc;
+  color: #424242;
+  padding: 5px;
+  font-size: 17px;
+  font-family: Arial, sans-serif;
+}

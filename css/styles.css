@@ -1,51 +1,53 @@
-body{
-  font-size: 18px !important;
-  font-family: 'Saira Semi Condensed', sans-serif;
-  font-style: normal;
+.title{
+  font-size: 14px;
+  font-family: Arial, sans-serif;
 }
 
-th{
+.detail{
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+}
+
+.stamp{
+  font-size: 10px;
+  color: #616161;
+}
+
+.focused-block{
   padding: 8px;
-  color: #fff;
-  background: #ff6600;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
 }
 
-td{
-  padding: 2px;
-  color: #fff;
-}
-
-p{
-  color: #fff;
-}
-
-button{
-  background: #33691E;
-  color: #fff;
-  padding: 5px;
-  border: none;
-  font-size: 17px;
-  min-width: 80px;
-  text-decoration: none;
-  font-family: 'Saira Semi Condensed', sans-serif;
+button.selectable:hover{
+  background: #1565C0;
+  transition: 0.2s;
+  -webkit-transition: 0.2s; /* Safary */
 }
 
 .selectable{
   cursor: pointer;
+  transition: 0.2s;
+  -webkit-transition: 0.2s; /* Safary */
+}
+
+.selectable:hover{
+  background: #E0E0E0;
+  transition: 0.2s;
+  -webkit-transition: 0.2s; /* Safary */
 }
 
 .box{
-  background: #212121;
+  max-width: 600px;
+  background: #f7f7f7;
   padding: 10px;
 }
 
-input,textarea{
-  background: #212121;
-  border: 2px #414141;
-  color: #fff;
-  padding: 5px;
-  font-size: 17px;
-  font-family: 'Saira Semi Condensed', sans-serif;
+.nodeBox{
+  max-width: 300px;
+  background: #f7f7f7;
+  padding: 10px;
 }
 
 .padded{
@@ -53,24 +55,21 @@ input,textarea{
 }
 
 #head {
-  border:2px dashed #ccc;
-  margin: 5px;
-  padding: 15px;
+  margin: 0px;
+  padding: 0px;
 }
 
 #node {
   float:left;
-  min-width: 350px;
-  border:2px dashed #ccc;
-  margin: 5px;
-  padding: 15px;
+  max-width: 280px;
+  margin: 0px;
+  padding: 5px;
 }
 
 #synapse {
   float: left;
-  margin:5px;
-  padding: 15px;
-  border:2px dashed #ccc;
+  margin:0px;
+  padding: 5px;
   min-height:170px;
-  min-width: 350px;
+  min-width: 500px;
 }
