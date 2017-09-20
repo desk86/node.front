@@ -2,7 +2,12 @@ body{
   font-size: 14px !important;
   font-family: Arial, sans-serif;
   font-style: normal;
-  margin: 0px;
+  margin: 0 auto;
+  width: 800px;
+}
+
+div.app{
+
 }
 
 h4,h3,h2{
@@ -48,7 +53,7 @@ button{
 
 input,textarea{
   background: #fff;
-  border: 2px solid #ccc;
+  border: 1px solid #ccc;
   color: #424242;
   padding: 5px;
   font-size: 17px;

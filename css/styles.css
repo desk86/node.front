@@ -20,6 +20,11 @@
   background: #fff;
 }
 
+span.focused{
+  font-weight: bold;
+  color: #616161;
+}
+
 button.selectable:hover{
   background: #1565C0;
   transition: 0.2s;
@@ -54,20 +59,22 @@ button.selectable:hover{
   padding: 8px;
 }
 
+.table_display{
+  display: table;
+}
+
 #head {
   margin: 0px;
   padding: 0px;
 }
 
 #node {
-  float:left;
   max-width: 280px;
   margin: 0px;
   padding: 5px;
 }
 
 #synapse {
-  float: left;
   margin:0px;
   padding: 5px;
   min-height:170px;
