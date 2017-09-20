@@ -5,6 +5,10 @@ window.onload = function(){
   onPageStart();
 };
 
+var node_globals = {
+  host_name : "192.168.50.112:1997"
+};
+
 var global_parent = 0;
 var defaultNode = {
   id : window.global_parent,
@@ -43,7 +47,7 @@ var myController = function ($http, $scope) {
     newSynapse.content.type = synapseType;
     $http({
         method : "POST",
-        url : "http://192.168.50.113:1997/synapse",
+        url : "http://"+window.node_globals.host_name+"/synapse",
         params : {
           session : getCookie("node_session"),
           request : "insert",
@@ -60,7 +64,7 @@ var myController = function ($http, $scope) {
   $scope.addNode = function(newNode){
     $http({
       method : "POST",
-      url : "http://192.168.50.113:1997/node",
+      url : "http://"+window.node_globals.host_name+"node",
       params : {
         session : getCookie("node_session"),
         request : "insert",
@@ -81,7 +85,7 @@ var myController = function ($http, $scope) {
       $scope.locationList = [];
     $http({
       method : "GET",
-      url : "http://192.168.50.113:1997/node",
+      url : "http://"+window.node_globals.host_name+"node",
       params : {
         session : getCookie("node_session"),
         request : "list",
@@ -97,7 +101,7 @@ var myController = function ($http, $scope) {
     });
     $http({
       method : "GET",
-      url : "http://192.168.50.113:1997/synapse",
+      url : "http://"+window.node_globals.host_name+"synapse",
       params : {
         session : getCookie("node_session"),
         request : "list",
