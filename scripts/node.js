@@ -1,19 +1,19 @@
-console.log("Hello!");
 window.onload = function(){
   var session = getCookie("node_session");
-  if (!session) window.location.href = "login.html";
+  //if (!session) window.location.href = "login.html";
   onPageStart();
+  bindDefaults();
 };
 
 var node_globals = {
-  host_name : "192.168.50.112:1997"
+  host_name : "localhost:1997/"
 };
 
 var global_parent = 0;
 var defaultNode = {
   id : window.global_parent,
   content : {
-    title : "léMIPS Academy",
+    title : "desk86 Academy",
     des : "Open Education For Everyone"
   }
 };
@@ -22,6 +22,20 @@ var defaultProfile = {
   id : "1011",
   name : "Abu Sufian",
   image : "451eaf4e5fevb.png"
+}
+
+function bindDefaults(){
+  var xhttp;
+  console.log("Connecting...");
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function(){
+    if (this.readyState ==4 && this.status == 200){
+      onPostResponse(this);
+    }
+  }
+  xhttp.open("POST", "http://"+window.node_globals.host_name+"/node", true);
+  xhttp.send("request=detail&session="+getCookie("node_session")
+  +"&node="+getCookie("node"));
 }
 
 var myApp = angular.module("myApp", []);
@@ -33,6 +47,8 @@ myApp.filter("trust", ['$sce', function($sce) {
 }]);
 
 var myController = function ($http, $scope) {
+  window.global_parent = getCookie("node");
+  window.defaultNode.id = window.global_parent;
   $scope.defaultNode = window.defaultNode;
   $scope.parent = window.global_parent;
   $scope.locationList = [];
@@ -47,7 +63,7 @@ var myController = function ($http, $scope) {
     newSynapse.content.type = synapseType;
     $http({
         method : "POST",
-        url : "http://"+window.node_globals.host_name+"/synapse",
+        url : "http://"+window.node_globals.host_name+"synapse",
         params : {
           session : getCookie("node_session"),
           request : "insert",
@@ -92,7 +108,7 @@ var myController = function ($http, $scope) {
         parent : window.global_parent}
     })
     .then(function(response){
-      console.log(response);
+      //console.log(response);
       if (response.data == "error"){
         console.log("error response");
         resetToLogin();

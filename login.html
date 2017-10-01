@@ -38,13 +38,14 @@
         xhttp.send("email="+email+"&password="+password);
     };
     function onPostResponse(xhttp){
-      var session = xhttp.response;
-      if (session === "null"){
+      var data = JSON.parse(xhttp.response);
+      if (data === "null"){
           document.getElementById("msg").innerHTML = "Login Error";
       }
       else {
-        setCookie("node_session", session, 7);
-        window.location.href = "index.html";
+        setCookie("node_session", data.session, 7);
+        setCookie("node", data.node, 7);
+        //window.location.href = "index.html";
       }
     };
     function getCookie(cname) {
@@ -66,7 +67,9 @@
         var d = new Date();
         d.setTime(d.getTime() + (exdays*24*60*60*1000));
         var expires = "expires="+ d.toUTCString();
-        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        var cooked = cname + "=" + cvalue + ";" + expires + ";path=/";
+        console.log(cooked);
+        document.cookie = cooked;
     };
     window.onload = function(){
         var session = getCookie("node_session");
