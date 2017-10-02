@@ -1,0 +1,34 @@
+/* Style the tab */
+div.sTab {
+   overflow: hidden;
+   border: 1px solid #ccc;
+   background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+div.sTab button {
+   background-color: inherit;
+   float: left;
+   border: none;
+   outline: none;
+   cursor: pointer;
+   color: #424242;
+   padding: 4px;
+   transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+div.sTab button:hover {
+   background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+div.sTab button.active {
+   background-color: #ccc;
+}
+
+/* Style the tab content */
+.sTabcontent {
+   display: none;
+   padding: : 4px;
+}

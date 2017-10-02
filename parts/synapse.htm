@@ -1,0 +1,49 @@
+<div class="focused-block">
+  <div class="padded">
+    <h2>Focused Node Header</h2>
+    <p>Hello, do something following this instruction</p>
+  </div>
+  <table>
+    <tr ng-repeat="synapse in synapses">
+      <td><img src="bin/settings-1.png" height="40px" width="40px"/></td>
+      <td  class="padded">
+        <h4>{{synapse.editor.name}}</h4>
+        <p>{{synapse.content.des}}</p>
+        <p class="stamp">12 minutes ago</p>
+      </td>
+    </tr>
+  </table>
+</div>
+<!-- Start Insert Synapse -->
+<div class="focused-block">
+  <div class="sTab">
+  <button class="sTablinks img-container"
+    id="defaultOpen"
+    onclick="openSynapseAction(event, 'Message')">
+    <img class="cropped" src="images/ic_message_black_24px.svg" height="24px" width="24px"/>
+  </button>
+  <button class="sTablinks img-container" onclick="openSynapseAction(event, 'Article')">
+    <img class="cropped" src="images/ic_receipt_black_24px.svg" height="24px" width="24px"/>
+  </button>
+  <button class="sTablinks img-container" onclick="openSynapseAction(event, 'Post')">
+    <img class="cropped" src="images/ic_line_style_black_24px.svg" height="24px" width="24px"/>
+  </button>
+  </div>
+  <span id="Message" class="sTabcontent">
+    <textarea ng-model="newSynapse.content.des"></textarea>
+    <br/><button class="selectable"
+      ng-click="addSynapse(newSynapse)">
+      Post
+    </button>
+  </span>
+
+  <div id="Article" class="sTabcontent">
+  <h3>Artilcle</h3>
+  <p>Paris is the capital of France.</p>
+  </div>
+
+  <div id="Post" class="sTabcontent">
+  <h3>Hybrid</h3>
+  <p>Tokyo is the capital of Japan.</p>
+  </div>
+</div>

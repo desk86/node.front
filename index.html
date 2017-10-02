@@ -2,41 +2,152 @@
 <html>
 <head>
     <meta charset="UTF-8">
-
+    <link rel="stylesheet" type="text/css" href="css/core.css"/>
+    <link rel="stylesheet" type="text/css" href="css/tab.css"/>
+    <link rel="stylesheet" type="text/css" href="css/img.css"/>
     <link rel="stylesheet" type="text/css" href="css/styles.css"/>
-
-    <script type="text/javascript" src="scripts/angular.js"></script>
+    <script type="text/javascript" src="scripts/angular.min.js"></script>
     <script type="text/javascript" src="scripts/node.js"></script>
-
-    <title>leMIPS webAdmin</title>
+    <script type="text/javascript" src="scripts/tab.js"></script>
+    <script type="text/javascript" src="scripts/page.js"></script>
+    <title>Node</title>
 </head>
 
-<body>
+<body bgcolor="#EEEEEE">
 
-<div ng-app="myApp">
-    <div ng-controller="myController">
-      <div id="page">
-        <p>
-          Current Node : {{parent}}
-          <button ng-click="openChild(0)">Home</button><br/>
-          <button
-            ng-repeat="location in locationList track by $index"
-            ng-click="openFromLocation(index, location)">{{location}}</button>
-        </p>
-      <table>
-        <th>Id</th><th>Content</th>
-        <tr ng-repeat="field in listOfFields">
-          <td><button ng-click="openChild(field.id)">{{field.id}}</button></td>
-          <td><div ng-bind-html="field.content | trust"></div></td>
-        </tr>
-        <tr>
-          <td><button ng-click="addNew(newNode)">Insert</button></td>
-          <td><input type="text" ng-model="newNode.content"/></td>
-        </tr>
-      </table>
+<!-- Start Content -->
+<div ng-app="myApp" class="app">
+    <div ng-controller="myController" class="wrapper">
+      <!-- Start Head -->
+      <div id="head">
+          <button class="selectable">Home</button>
+          <button class="selectable">Nodes</button>
+          <button class="selectable">Profile</button>
       </div>
+      <!-- End Head -->
+      <table><tr>
+      <!-- Start List Node -->
+      <td style="vertical-align:top;">
+      <div id="node">
+        <div>
+          <table><tr>
+            <td><img src="bin/node-logo_4_node_45x45.png" height="45px" width="45px"/></td>
+            <td><div class="padded">
+              <h2>{{currentNode.content.title}}</h2>
+              <p>{{currentNode.content.des}}</p>
+            </div></td>
+          </tr></table>
+          <table>
+            <tr ng-repeat="node in nodes"  class = "selectable nodeBox title">
+              <td>
+                <img src="bin/node-logo_40x40.png" height="40px" width="40px"/>
+              </td>
+              <td>
+                <div
+                    ng-click="openChild(node)">
+                  <h3>{{node.content.title}}</h3>
+                  <div ng-bind-html="node.content.des | trust"></div>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="table_display">
+          <div class="padded">
+            <h3>Create New Child Node</h3>
+            <p>New node will be added as
+              a child node for
+              <span class="focused">
+                {{currentNode.content.title}}
+              </span></p>
+          </div>
+          <div class="padded">
+            <input type="text"
+              class="title"
+              ng-model="newNode.content.title"
+              placeholder="New Node Title"/><br/>
+            <textarea type="text"
+              class="detail"
+              ng-model="newNode.content.des"
+              placeholder="New Node Description"></textarea><br/>
+            <button class="selectable" ng-click="addNode(newNode)">Create</button>
+          </div>
+        </div>
+      </div></td>
+      <!-- End List Node -->
+      <!-- Start List Synapse -->
+      <td style="vertical-align:top;">
+      <div id="synapse">
+        <div>
+          <button
+            class="selectable"
+            ng-click="openChild(defaultNode)">/</button>
+          <button
+            class="selectable"
+            ng-repeat="node in locationList track by $index"
+            ng-click="openFromLocation(node)">{{node.content.title}}</button>
+        </div>
+        <div class="focused-block">
+          <div class="padded">
+            <h2>Focused Node Header</h2>
+            <p>Hello, do something following this instruction</p>
+          </div>
+          <table>
+            <tr ng-repeat="synapse in synapses">
+              <td><img src="bin/settings-1.png" height="40px" width="40px"/></td>
+              <td>
+                <div ng-bind-html="synapse.htm | trust"></div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <!-- Start Insert Synapse -->
+        <div class="focused-block">
+          <div class="sTab">
+          <button class="sTablinks img-container"
+            id="defaultOpen"
+            onclick="openSynapseAction(event, 'Message')">
+            <img class="cropped" src="images/ic_message_black_24px.svg" height="24px" width="24px"/>
+          </button>
+          <button class="sTablinks img-container" onclick="openSynapseAction(event, 'Article')">
+            <img class="cropped" src="images/ic_receipt_black_24px.svg" height="24px" width="24px"/>
+          </button>
+          <button class="sTablinks img-container" onclick="openSynapseAction(event, 'Post')">
+            <img class="cropped" src="images/ic_line_style_black_24px.svg" height="24px" width="24px"/>
+          </button>
+          </div>
+          <span id="Message" class="sTabcontent">
+            <textarea ng-model="newSynapse.content.des"></textarea>
+            <br/><button class="selectable"
+              ng-click="addSynapse(newSynapse,'message')">
+              Post
+            </button>
+          </span>
+
+          <div id="Article" class="sTabcontent">
+            <input type="text"
+              class="title"
+              ng-model="newSynapse.content.title"
+              placeholder="New Node Title"/><br/>
+            <textarea ng-model="newSynapse.content.des"></textarea>
+            <br/><button class="selectable"
+              ng-click="addSynapse(newSynapse,'post')">
+              Post
+            </button>
+          </div>
+
+          <div id="Post" class="sTabcontent">
+          <h3>Hybrid</h3>
+          <p>Tokyo is the capital of Japan.</p>
+          </div>
+        </div>
+        <!-- End Insert Synapse -->
+      </div></td>
+      <!-- End List Synapse -->
+      </tr></table>
     </div>
 </div>
+<!--- End Content -->
 
 </body>
 </html>

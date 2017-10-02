@@ -1,0 +1,15 @@
+button.img-container {
+     width: 50px;
+     height: 32px;
+     position: relative;
+     overflow: hidden;
+ }
+
+ img.cropped {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
