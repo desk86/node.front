@@ -1,8 +1,8 @@
 window.onload = function(){
   var session = getCookie("node_session");
-  //if (!session) window.location.href = "login.html";
+  if (!session) window.location.href = "login.html";
   onPageStart();
-  bindDefaults();
+  //bindDefaults();
 };
 
 var node_globals = {
@@ -30,12 +30,17 @@ function bindDefaults(){
   xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function(){
     if (this.readyState ==4 && this.status == 200){
-      onPostResponse(this);
+      onNodeReceive(this);
     }
   }
-  xhttp.open("POST", "http://"+window.node_globals.host_name+"/node", true);
+  xhttp.open("POST", "http://"+window.node_globals.host_name+"node", true);
   xhttp.send("request=detail&session="+getCookie("node_session")
   +"&node="+getCookie("node"));
+}
+
+function onNodeReceive(xhttp){
+  var data = JSON.parse(xhttp.response);
+  window.defaultNode.content = data.content;
 }
 
 var myApp = angular.module("myApp", []);
@@ -47,11 +52,6 @@ myApp.filter("trust", ['$sce', function($sce) {
 }]);
 
 var myController = function ($http, $scope) {
-  window.global_parent = getCookie("node");
-  window.defaultNode.id = window.global_parent;
-  $scope.defaultNode = window.defaultNode;
-  $scope.parent = window.global_parent;
-  $scope.locationList = [];
   $scope.openFromLocation = function(node){
     $scope.locationList = $scope.locationList.splice(0,
         $scope.locationList.indexOf(node));
@@ -93,11 +93,11 @@ var myController = function ($http, $scope) {
     });
   };
   $scope.openChild = function(nodeToOpen){
-    window.global_parent = nodeToOpen.id;
+    //window.global_parent = nodeToOpen.id;
     $scope.parent = nodeToOpen.id;
     $scope.locationList.push(nodeToOpen);
     $scope.currentNode = nodeToOpen;
-    if (nodeToOpen.id == 0)
+    if (nodeToOpen.id == window.global_parent)
       $scope.locationList = [];
     $http({
       method : "GET",
@@ -105,7 +105,7 @@ var myController = function ($http, $scope) {
       params : {
         session : getCookie("node_session"),
         request : "list",
-        parent : window.global_parent}
+        parent : nodeToOpen.id}
     })
     .then(function(response){
       //console.log(response);
@@ -121,7 +121,7 @@ var myController = function ($http, $scope) {
       params : {
         session : getCookie("node_session"),
         request : "list",
-        node : window.global_parent}
+        node : nodeToOpen.id}
     })
     .then(function(response){
       var tmp = response.data;
@@ -139,7 +139,29 @@ var myController = function ($http, $scope) {
   $scope.onActionUpdate = function(){
     //Hide Button
   }
-  $scope.openChild(window.currentNode);
+  $scope.onInit = function(){
+    window.global_parent = getCookie("node");
+    window.defaultNode.id = window.global_parent;
+    $scope.defaultNode = window.defaultNode;
+    $scope.parent = window.global_parent;
+    $scope.locationList = [];
+    $http({
+      method : "GET",
+      url : "http://"+window.node_globals.host_name+"node",
+      params : {
+        session : getCookie("node_session"),
+        request : "detail",
+        node : window.global_parent}
+    })
+    .then(function(response){
+      window.defaultNode = response.data;
+      window.currentNode = response.data;
+      $scope.currentNode = response.data;
+      $scope.defaultNode = response.data;
+      $scope.openChild(window.currentNode);
+    });
+  }
+  $scope.onInit();
 };
 
 myApp.controller("myController", myController);
