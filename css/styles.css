@@ -26,7 +26,7 @@ span.focused{
 }
 
 button.selectable:hover{
-  background: #1565C0;
+  background: #2E7D32;
   transition: 0.2s;
   -webkit-transition: 0.2s; /* Safary */
 }
@@ -49,10 +49,27 @@ button.selectable:hover{
   padding: 10px;
 }
 
+.wh_font{
+  color: #f7f7f7;
+}
+
+.full_width{
+  width: 100%;
+}
+
+.colored_box{
+  background: #1B5E20;
+  color: #f7f7f7;
+}
+
 .nodeBox{
   max-width: 300px;
   background: #f7f7f7;
   padding: 10px;
+}
+
+.no_pad{
+  padding: 0px;
 }
 
 .padded{
@@ -63,9 +80,15 @@ button.selectable:hover{
   display: table;
 }
 
+.float_right{
+  float: right;
+}
+
 #head {
   margin: 0px;
   padding: 0px;
+  background: #4CAF50;
+  height: 50px;
 }
 
 #node {

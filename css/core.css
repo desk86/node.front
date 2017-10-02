@@ -12,7 +12,7 @@ div.app{
 
 h4,h3,h2{
   margin: 0px;
-  color: #0D47A1;
+  color: #1B5E20;
 }
 h3:hover{
   text-decoration: underline;
@@ -37,7 +37,7 @@ p{
 }
 
 button{
-  background: #0D47A1;
+  background: #1B5E20;
   color: #eee;
   padding-left: 16px;
   padding-right: 16px;

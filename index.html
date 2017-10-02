@@ -10,6 +10,7 @@
     <script type="text/javascript" src="scripts/node.js"></script>
     <script type="text/javascript" src="scripts/tab.js"></script>
     <script type="text/javascript" src="scripts/page.js"></script>
+    <script type="text/javascript" src="scripts/user.js"></script>
     <title>Node</title>
 </head>
 
@@ -21,28 +22,25 @@
       <!-- Start Head -->
       <div id="head">
           <button class="selectable">Home</button>
-          <button class="selectable">Nodes</button>
-          <button class="selectable">Profile</button>
+          <button class="selectable float_right" onclick="onSignOut()">Log Out</button>
       </div>
       <!-- End Head -->
       <table><tr>
       <!-- Start List Node -->
       <td style="vertical-align:top;">
       <div id="node">
-        <div>
-          <table><tr>
-            <td><img src="bin/node-logo_4_node_45x45.png" height="45px" width="45px"/></td>
-            <td><div class="padded">
-              <h2>{{currentNode.content.title}}</h2>
-              <p>{{currentNode.content.des}}</p>
+        <div class="focused-block no_pad">
+          <table class="colored_box full_width padded"><tr>
+            <td><div>
+              <h2 class="wh_font">{{currentNode.content.title}}</h2>
             </div></td>
           </tr></table>
-          <table>
-            <tr ng-repeat="node in nodes"  class = "selectable nodeBox title">
+          <table class="padded">
+            <tr ng-repeat="node in nodes"  class = "selectable title">
               <td>
                 <img src="bin/node-logo_40x40.png" height="40px" width="40px"/>
               </td>
-              <td>
+              <td class="full_width">
                 <div
                     ng-click="openChild(node)">
                   <h3>{{node.content.title}}</h3>
@@ -52,7 +50,7 @@
             </tr>
           </table>
         </div>
-        <div class="table_display">
+        <div class="table_display focused-block">
           <div class="padded">
             <h3>Create New Child Node</h3>
             <p>New node will be added as
@@ -80,18 +78,23 @@
       <div id="synapse">
         <div>
           <button
-            class="selectable"
+            class="selectable padded"
             ng-click="openChild(defaultNode)">/</button>
           <button
-            class="selectable"
+            class="selectable padded"
             ng-repeat="node in locationList track by $index"
             ng-click="openFromLocation(node)">{{node.content.title}}</button>
         </div>
         <div class="focused-block">
-          <div class="padded">
-            <h2>Focused Node Header</h2>
-            <p>Hello, do something following this instruction</p>
-          </div>
+          <table><tr>
+          <td><img src="bin/node-logo_4_node_45x45.png" height="45px" width="45px"/></td>
+          <td><div>
+            <h2>{{currentNode.content.title}}</h2>
+            <p>{{currentNode.content.des}}</p>
+          </div></td>
+          </tr></table>
+        </div>
+        <div class="focused-block">
           <table>
             <tr ng-repeat="synapse in synapses">
               <td><img src="bin/settings-1.png" height="40px" width="40px"/></td>
